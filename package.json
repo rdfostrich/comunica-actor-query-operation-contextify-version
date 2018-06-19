@@ -11,7 +11,7 @@
   "typings": "index",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/comunica/actor-query-operation-contextify-version.git"
+    "url": "git+https://github.com/rdfostrich/comunica-actor-query-operation-contextify-version.git"
   },
   "keywords": [
     "comunica",
@@ -21,9 +21,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/comunica/actor-query-operation-contextify-version/issues"
+    "url": "https://github.com/rdfostrich/comunica-actor-query-operation-contextify-version/issues"
   },
-  "homepage": "https://github.com/comunica/actor-query-operation-contextify-version#readme",
+  "homepage": "https://github.com/rdfostrich/comunica-actor-query-operation-contextify-version#readme",
   "files": [
     "components",
     "lib/**/*.d.ts",
