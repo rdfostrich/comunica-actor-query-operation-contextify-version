@@ -1,6 +1,8 @@
 # Comunica Contextify Version Query Operation Actor
 
 [![npm version](https://badge.fury.io/js/%40comunica%2Factor-query-operation-contextify-version.svg)](https://www.npmjs.com/package/@comunica/actor-query-operation-contextify-version)
+[![Build Status](https://travis-ci.org/rdfostrich/comunica-actor-query-operation-contextify-version.svg?branch=master)](https://travis-ci.org/rdfostrich/comunica-actor-query-operation-contextify-version)
+[![Coverage Status](https://coveralls.io/repos/github/rdfostrich/comunica-actor-query-operation-contextify-version/badge.svg?branch=master)](https://coveralls.io/github/rdfostrich/comunica-actor-query-operation-contextify-version?branch=master)
 
 A comunica Contextify Version Query Operation Actor.
 
