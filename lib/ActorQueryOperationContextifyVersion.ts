@@ -139,13 +139,13 @@ export class ActorQueryOperationContextifyVersion extends ActorQueryOperation
       return null;
     }
 
-    const context = Object.assign({ version: versionContext }, action.context);
+    const context = action.context.set(KEY_CONTEXT_VERSION, versionContext);
 
     return { operation, context };
   }
 
   public async test(action: IActionQueryOperation): Promise<IActorTest> {
-    if (action.context && !action.context.version) {
+    if (action.context && !action.context.has(KEY_CONTEXT_VERSION)) {
       if (this.getContextifiedVersionOperation(action)) {
         return true;
       }
@@ -163,3 +163,9 @@ export interface IActorQueryOperationContextifyVersionArgs extends IActorQueryOp
   baseGraphUri: string;
   numericalVersions: boolean;
 }
+
+/**
+ * @type {string} Context entry for a version.
+ * @value {IDataSource} A source.
+ */
+export const KEY_CONTEXT_VERSION: string = '@comunica/actor-query-operation-contextify-version:version';
