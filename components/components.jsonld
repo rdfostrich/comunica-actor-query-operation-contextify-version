@@ -1,9 +1,9 @@
 {
-  "@context": "https://linkedsoftwaredependencies.org/contexts/comunica-actor-query-operation-contextify-version.jsonld",
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-contextify-version/^1.0.0/components/context.jsonld",
   "@id": "npmd:@comunica/actor-query-operation-contextify-version",
   "@type": "Module",
   "requireName": "@comunica/actor-query-operation-contextify-version",
   "import": [
-    "Actor/QueryOperation/ContextifyVersion.jsonld"
+    "files-caqocv:components/Actor/QueryOperation/ContextifyVersion.jsonld"
   ]
 }
