@@ -1,8 +1,8 @@
 import {ActorQueryOperation, IActorQueryOperationOutputBindings} from "@comunica/bus-query-operation";
 import {Bindings} from "@comunica/bus-query-operation";
 import {ActionContext, Bus} from "@comunica/core";
+import {literal, namedNode} from "@rdfjs/data-model";
 import {ArrayIterator} from "asynciterator";
-import {literal, namedNode} from "rdf-data-model";
 import {Factory} from "sparqlalgebrajs";
 import {ActorQueryOperationContextifyVersion, KEY_CONTEXT_VERSION} from "../lib/ActorQueryOperationContextifyVersion";
 const quad = require('rdf-quad');
