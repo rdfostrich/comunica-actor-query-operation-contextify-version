@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.1.1"></a>
+## [v1.1.1](https://github.com/rdfostrich/comunica-actor-query-operation-contextify-version/compare/v1.1.0...v1.1.1) - 2020-01-14
+
+### Changed
+* [Update typings to Node 13](https://github.com/rdfostrich/comunica-actor-query-operation-contextify-version/commit/800a2fb0d8740e842ede3eeeb17b058aa392b741)
+* [Update sparqlalgebrajs to version 2.0.0](https://github.com/rdfostrich/comunica-actor-query-operation-contextify-version/commit/ac3a4366da42ef2fdcd93c4942e0726987b0d94f)
+
 <a name="v1.1.0"></a>
 ## [v1.1.0](https://github.com/rdfostrich/comunica-actor-query-operation-contextify-version/compare/v1.0.0...v1.1.0) - 2018-10-04
 
