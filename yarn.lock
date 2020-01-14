@@ -304,12 +304,11 @@
   dependencies:
     "@types/rdf-js" "^2.0.1"
 
-"@types/asynciterator@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@types/asynciterator/-/asynciterator-1.1.1.tgz#21ae5e3729ab2e87d324a044b2cd6288226da7fc"
-  integrity sha512-KgjXxTtWbMW7UA4oZauIfg2rCl5+5LbsoVF5DwwpXVQxzSbez2PQ9NAlbJlBjIHqKLOpWcdjqL+wyrNepvTZOg==
+"@types/asynciterator@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@types/asynciterator/-/asynciterator-1.1.3.tgz#041d6c4d906536eca415ff8f68c6f3e2e8eae5e1"
+  integrity sha512-F/Hji5v/C7wPDmrTt3C3KrSa3Ztn/C/j72jvdhVZwzSTRoow8jQPW59G/0ML5S0SUXu5rjzuDaxHsZs4GRyFOw==
   dependencies:
-    "@types/events" "*"
     "@types/node" "*"
 
 "@types/babel__core@^7.1.0":
@@ -345,11 +344,6 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/events@*":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
-  integrity sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==
-
 "@types/istanbul-lib-coverage@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-1.1.0.tgz#2cc2ca41051498382b43157c8227fea60363f94a"
@@ -372,10 +366,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.11.0.tgz#070e9ce7c90e727aca0e0c14e470f9a93ffe9390"
   integrity sha512-D5Rt+HXgEywr3RQJcGlZUCTCx1qVbCZpVk3/tOOA6spLNZdGm8BU+zRgdRYDoF1pO3RuXLxADzMrF903JlQXqg==
 
-"@types/node@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.0.tgz#d11813b9c0ff8aaca29f04cbc12817f4c7d656e5"
-  integrity sha512-Jrb/x3HT4PTJp6a4avhmJCDEVrPdqLfl3e8GGMbpkGGdwAV5UGlIs4vVEfsHHfylZVOKZWpOqmqFH8CbfOZ6kg==
+"@types/node@^13.1.6":
+  version "13.1.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.6.tgz#076028d0b0400be8105b89a0a55550c86684ffec"
+  integrity sha512-Jg1F+bmxcpENHP23sVKkNuU3uaxPnsBMW0cLjleiikFKomJQbsn0Cqk2yDvQArqzZN6ABfBkZ0To7pQ8sLdWDg==
 
 "@types/rdf-js@^2.0.1":
   version "2.0.1"
