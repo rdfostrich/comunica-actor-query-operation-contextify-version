@@ -46,7 +46,7 @@
   "devDependencies": {
     "@comunica/bus-query-operation": "^1.4.0",
     "@comunica/core": "^1.4.0",
-    "@types/jest": "^24.0.0",
+    "@types/jest": "^25.1.0",
     "arrayify-stream": "^1.0.0",
     "asynciterator": "^2.0.0",
     "coveralls": "^3.0.0",
