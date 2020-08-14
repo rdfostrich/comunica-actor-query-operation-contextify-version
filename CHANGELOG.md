@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+<a name="v1.1.2"></a>
+## [v1.1.2](https://github.com/rdfostrich/comunica-actor-query-operation-contextify-version/compare/v1.1.1...v1.1.2) - 2020-08-14
+
+### Changed
+* [Update to comunica 1.15, Closes #36](https://github.com/rdfostrich/comunica-actor-query-operation-contextify-version/commit/5ada245561d1581b3d5473c3fe35908085ea6f0f)
+
 <a name="v1.1.1"></a>
 ## [v1.1.1](https://github.com/rdfostrich/comunica-actor-query-operation-contextify-version/compare/v1.1.0...v1.1.1) - 2020-01-14
 
