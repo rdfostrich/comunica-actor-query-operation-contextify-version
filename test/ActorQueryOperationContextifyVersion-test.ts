@@ -1,12 +1,13 @@
-import {ActorQueryOperation, IActorQueryOperationOutputBindings} from "@comunica/bus-query-operation";
-import {Bindings} from "@comunica/bus-query-operation";
-import {ActionContext, Bus} from "@comunica/core";
-import {DataFactory} from "rdf-data-factory";
-import {ArrayIterator} from "asynciterator";
-import {Factory} from "sparqlalgebrajs";
-import {ActorQueryOperationContextifyVersion, KEY_CONTEXT_VERSION} from "../lib/ActorQueryOperationContextifyVersion";
-const quad = require('rdf-quad');
+import type { IActorQueryOperationOutputBindings } from '@comunica/bus-query-operation';
+import { ActorQueryOperation, Bindings } from '@comunica/bus-query-operation';
+
+import { ActionContext, Bus } from '@comunica/core';
+import { ArrayIterator } from 'asynciterator';
+import { DataFactory } from 'rdf-data-factory';
+import { Factory } from 'sparqlalgebrajs';
+import { ActorQueryOperationContextifyVersion, KEY_CONTEXT_VERSION } from '../lib/ActorQueryOperationContextifyVersion';
 const arrayifyStream = require('arrayify-stream');
+const quad = require('rdf-quad');
 
 const DF = new DataFactory();
 
@@ -21,7 +22,7 @@ describe('ActorQueryOperationContextifyVersion', () => {
   beforeEach(() => {
     bus = new Bus({ name: 'bus' });
     mediatorQueryOperation = {
-      mediate: (arg) => Promise.resolve({
+      mediate: arg => Promise.resolve({
         bindingsStream: new ArrayIterator([
           Bindings({ '?a': DF.literal('1') }),
           Bindings({ '?a': DF.literal('2') }),
@@ -30,7 +31,7 @@ describe('ActorQueryOperationContextifyVersion', () => {
         metadata: () => Promise.resolve({ totalItems: 3 }),
         operated: arg,
         type: 'bindings',
-        variables: ['a'],
+        variables: [ 'a' ],
       }),
     };
     baseGraphUri = 'http://ex/g/';
@@ -39,26 +40,24 @@ describe('ActorQueryOperationContextifyVersion', () => {
       operation: {
         expression: {
           expressionType: 'existence',
-          input: { type: 'bgp', patterns: [ quad('s', 'p', 'o', 'http://ex/g/1') ] },
+          input: { type: 'bgp', patterns: [ quad('s', 'p', 'o', 'http://ex/g/1') ]},
           not: true,
           type: 'expression',
         },
-        input: { type: 'bgp', patterns: [ quad('s', 'p', 'o', 'http://ex/g/2') ] },
+        input: { type: 'bgp', patterns: [ quad('s', 'p', 'o', 'http://ex/g/2') ]},
         type: 'filter',
-      },
-    };
+      }};
     actionValidDmDel = { context: ActionContext({}),
       operation: {
         expression: {
           expressionType: 'existence',
-          input: { type: 'bgp', patterns: [ quad('s', 'p', 'o', 'http://ex/g/2') ] },
+          input: { type: 'bgp', patterns: [ quad('s', 'p', 'o', 'http://ex/g/2') ]},
           not: true,
           type: 'expression',
         },
-        input: { type: 'bgp', patterns: [ quad('s', 'p', 'o', 'http://ex/g/1') ] },
+        input: { type: 'bgp', patterns: [ quad('s', 'p', 'o', 'http://ex/g/1') ]},
         type: 'filter',
-      },
-    };
+      }};
   });
 
   describe('The ActorQueryOperationContextifyVersion module', () => {
@@ -68,10 +67,12 @@ describe('ActorQueryOperationContextifyVersion', () => {
 
     it('should be a ActorQueryOperationContextifyVersion constructor', () => {
       expect(new (<any> ActorQueryOperationContextifyVersion)(
-        { name: 'actor', bus, mediatorQueryOperation, baseGraphUri, numericalVersions }))
+        { name: 'actor', bus, mediatorQueryOperation, baseGraphUri, numericalVersions },
+      ))
         .toBeInstanceOf(ActorQueryOperationContextifyVersion);
       expect(new (<any> ActorQueryOperationContextifyVersion)(
-        { name: 'actor', bus, mediatorQueryOperation, baseGraphUri, numericalVersions }))
+        { name: 'actor', bus, mediatorQueryOperation, baseGraphUri, numericalVersions },
+      ))
         .toBeInstanceOf(ActorQueryOperation);
     });
 
@@ -94,12 +95,12 @@ describe('ActorQueryOperationContextifyVersion', () => {
 
   describe('#isSingularBgp', () => {
     it('should be true on a singular BGP', () => {
-      return expect(ActorQueryOperationContextifyVersion.isSingularBgp({ type: 'bgp', patterns: ['a'] }))
+      return expect(ActorQueryOperationContextifyVersion.isSingularBgp({ type: 'bgp', patterns: [ 'a' ]}))
         .toBeTruthy();
     });
 
     it('should be false on a non-singular BGP', () => {
-      return expect(ActorQueryOperationContextifyVersion.isSingularBgp({ type: 'bgp', patterns: ['a', 'b'] }))
+      return expect(ActorQueryOperationContextifyVersion.isSingularBgp({ type: 'bgp', patterns: [ 'a', 'b' ]}))
         .toBeFalsy();
     });
 
@@ -112,27 +113,32 @@ describe('ActorQueryOperationContextifyVersion', () => {
   describe('#graphToStringOrNumber', () => {
     it('should convert a graph directly', () => {
       return expect(ActorQueryOperationContextifyVersion.graphToStringOrNumber(
-        null, false, 'http://ex/g')).toEqual('http://ex/g');
+        null, false, 'http://ex/g',
+      )).toEqual('http://ex/g');
     });
 
     it('should take the suffix of a graph', () => {
       return expect(ActorQueryOperationContextifyVersion.graphToStringOrNumber(
-        'http://ex/', false, 'http://ex/g')).toEqual('g');
+        'http://ex/', false, 'http://ex/g',
+      )).toEqual('g');
     });
 
     it('should fail to convert a string-graph directly to a number', () => {
       return expect(ActorQueryOperationContextifyVersion.graphToStringOrNumber(
-        null, true, 'http://ex/g')).toEqual(NaN);
+        null, true, 'http://ex/g',
+      )).toEqual(Number.NaN);
     });
 
     it('should fail to take the number suffix of a string-graph', () => {
       return expect(ActorQueryOperationContextifyVersion.graphToStringOrNumber(
-        'http://ex/', true, 'http://ex/g')).toEqual(NaN);
+        'http://ex/', true, 'http://ex/g',
+      )).toEqual(Number.NaN);
     });
 
     it('should take the number suffix of a string-graph', () => {
       return expect(ActorQueryOperationContextifyVersion.graphToStringOrNumber(
-        'http://ex/g', true, 'http://ex/g1')).toEqual(1);
+        'http://ex/g', true, 'http://ex/g1',
+      )).toEqual(1);
     });
   });
 
@@ -141,7 +147,8 @@ describe('ActorQueryOperationContextifyVersion', () => {
 
     beforeEach(() => {
       actor = new ActorQueryOperationContextifyVersion(
-        { name: 'actor', bus, mediatorQueryOperation, baseGraphUri, numericalVersions });
+        { name: 'actor', bus, mediatorQueryOperation, baseGraphUri, numericalVersions },
+      );
     });
 
     describe('#getContextifiedVersionOperation', () => {
@@ -174,7 +181,7 @@ describe('ActorQueryOperationContextifyVersion', () => {
 
       it('should not convert an invalid DM', () => {
         const action: any = { context: ActionContext({}),
-          operation: {  type: 'none' } };
+          operation: { type: 'none' }};
         return expect(actor.getContextifiedVersionOperation(action)).toBeFalsy();
       });
 
@@ -183,14 +190,13 @@ describe('ActorQueryOperationContextifyVersion', () => {
           operation: {
             expression: {
               expressionType: 'existence',
-              input: { type: 'bgp', patterns: [ 'a' ] },
+              input: { type: 'bgp', patterns: [ 'a' ]},
               not: true,
               type: 'expression',
             },
             input: { type: 'none' },
             type: 'filter',
-          },
-        };
+          }};
         return expect(actor.getContextifiedVersionOperation(action)).toBeFalsy();
       });
 
@@ -203,10 +209,9 @@ describe('ActorQueryOperationContextifyVersion', () => {
               not: true,
               type: 'expression',
             },
-            input: { type: 'bgp', patterns: [ 'a' ] },
+            input: { type: 'bgp', patterns: [ 'a' ]},
             type: 'filter',
-          },
-        };
+          }};
         return expect(actor.getContextifiedVersionOperation(action)).toBeFalsy();
       });
 
@@ -215,29 +220,40 @@ describe('ActorQueryOperationContextifyVersion', () => {
           operation: {
             expression: {
               expressionType: 'existence',
-              input: { type: 'bgp', patterns: [ quad('s', 'px', 'o', 'g1') ] },
+              input: { type: 'bgp', patterns: [ quad('s', 'px', 'o', 'g1') ]},
               not: true,
               type: 'expression',
             },
-            input: { type: 'bgp', patterns: [ quad('s', 'p', 'o', 'g2') ] },
+            input: { type: 'bgp', patterns: [ quad('s', 'p', 'o', 'g2') ]},
             type: 'filter',
-          },
-        };
+          }};
         return expect(actor.getContextifiedVersionOperation(action)).toBeFalsy();
       });
 
       it('should convert a valid DM for additions', () => {
         return expect(actor.getContextifiedVersionOperation(actionValidDmAdd)).toEqual({
-          context: ActionContext({ [KEY_CONTEXT_VERSION]: {
-            queryAdditions: true, type: 'delta-materialization', versionEnd: 2, versionStart: 1 } }),
+          context: ActionContext({
+            [KEY_CONTEXT_VERSION]: {
+              queryAdditions: true,
+              type: 'delta-materialization',
+              versionEnd: 2,
+              versionStart: 1,
+            },
+          }),
           operation: new Factory().createPattern(DF.namedNode('s'), DF.namedNode('p'), DF.namedNode('o')),
         });
       });
 
       it('should convert a valid DM for deletions', () => {
         return expect(actor.getContextifiedVersionOperation(actionValidDmDel)).toEqual({
-          context: ActionContext({ [KEY_CONTEXT_VERSION]: {
-            queryAdditions: false, type: 'delta-materialization', versionEnd: 2, versionStart: 1 } }),
+          context: ActionContext({
+            [KEY_CONTEXT_VERSION]: {
+              queryAdditions: false,
+              type: 'delta-materialization',
+              versionEnd: 2,
+              versionStart: 1,
+            },
+          }),
           operation: new Factory().createPattern(DF.namedNode('s'), DF.namedNode('p'), DF.namedNode('o')),
         });
       });
@@ -252,7 +268,7 @@ describe('ActorQueryOperationContextifyVersion', () => {
     });
 
     it('should not test with a version context', () => {
-      return expect(actor.test(<any> { context: ActionContext({ version: {} }) })).rejects.toBeTruthy();
+      return expect(actor.test(<any> { context: ActionContext({ version: {}}) })).rejects.toBeTruthy();
     });
 
     it('should not test with an invalid operation', () => {
@@ -260,7 +276,7 @@ describe('ActorQueryOperationContextifyVersion', () => {
     });
 
     it('should run', () => {
-      return actor.run(actionValidDmDel).then(async (output: IActorQueryOperationOutputBindings) => {
+      return actor.run(actionValidDmDel).then(async(output: IActorQueryOperationOutputBindings) => {
         expect(await output.metadata()).toEqual({ totalItems: 3 });
         expect(output.type).toEqual('bindings');
         expect(await arrayifyStream(output.bindingsStream)).toEqual([

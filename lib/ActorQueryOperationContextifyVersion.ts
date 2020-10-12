@@ -1,22 +1,24 @@
-import {ActorQueryOperation, IActionQueryOperation, IActorQueryOperationOutput,
-  IActorQueryOperationTypedMediatedArgs} from "@comunica/bus-query-operation";
-import {Actor, IActorTest, Mediator} from "@comunica/core";
-import {Algebra, Factory} from "sparqlalgebrajs";
+import type { IActionQueryOperation, IActorQueryOperationOutput,
+  IActorQueryOperationTypedMediatedArgs } from '@comunica/bus-query-operation';
+import { ActorQueryOperation } from '@comunica/bus-query-operation';
+import type { Actor, IActorTest, Mediator } from '@comunica/core';
+import type { Algebra } from 'sparqlalgebrajs';
+import { Factory } from 'sparqlalgebrajs';
 
 /**
  * A comunica Contextify Version Query Operation Actor.
  */
 export class ActorQueryOperationContextifyVersion extends ActorQueryOperation
   implements IActorQueryOperationContextifyVersionArgs {
-
   protected static readonly FACTORY: Factory = new Factory();
 
   public readonly mediatorQueryOperation: Mediator<Actor<IActionQueryOperation, IActorTest, IActorQueryOperationOutput>,
-    IActionQueryOperation, IActorTest, IActorQueryOperationOutput>;
+  IActionQueryOperation, IActorTest, IActorQueryOperationOutput>;
+
   public readonly baseGraphUri: string;
   public readonly numericalVersions: boolean;
 
-  constructor(args: IActorQueryOperationContextifyVersionArgs) {
+  public constructor(args: IActorQueryOperationContextifyVersionArgs) {
     super(args);
   }
 
@@ -50,13 +52,12 @@ export class ActorQueryOperationContextifyVersion extends ActorQueryOperation
    */
   public static graphToStringOrNumber(baseGraphUri: string, numericalVersions: boolean, graph: string): any {
     if (baseGraphUri && graph.startsWith(baseGraphUri)) {
-      graph = graph.substr(baseGraphUri.length);
+      graph = graph.slice(baseGraphUri.length);
     }
     if (numericalVersions) {
-      return parseInt(graph, 10);
-    } else {
-      return graph;
+      return Number.parseInt(graph, 10);
     }
+    return graph;
   }
 
   /**
@@ -76,7 +77,7 @@ export class ActorQueryOperationContextifyVersion extends ActorQueryOperation
   public getContextifiedVersionOperation(action: IActionQueryOperation): IActionQueryOperation {
     let operation = null;
     const versionContext: any = {};
-    let valid: boolean = false;
+    let valid = false;
     if (action.operation.type === 'pattern' && action.operation.graph.termType !== 'DefaultGraph') {
       // Version materialization
       valid = true;
@@ -92,23 +93,23 @@ export class ActorQueryOperationContextifyVersion extends ActorQueryOperation
       const version = this.graphToStringOrNumber(action.operation.graph.value);
       versionContext.type = 'version-materialization';
       versionContext.version = version;
-    } else if (action.operation.type === 'filter'
-      && action.operation.expression.expressionType === 'existence'
-      && action.operation.expression.not) {
-
+    } else if (action.operation.type === 'filter' &&
+      action.operation.expression.expressionType === 'existence' &&
+      action.operation.expression.not) {
       // Delta materialization
       const left = action.operation.input;
       const right = action.operation.expression.input;
 
       // Detect not-exists filter of the same pattern over two graphs
-      if (ActorQueryOperationContextifyVersion.isSingularBgp(left)
-        && ActorQueryOperationContextifyVersion.isSingularBgp(right)) {
+      if (ActorQueryOperationContextifyVersion.isSingularBgp(left) &&
+        ActorQueryOperationContextifyVersion.isSingularBgp(right)) {
         // Remove graph from patterns
         const patterns: Algebra.Pattern[] = [
           left.patterns[0],
           right.patterns[0],
-        ].map((pattern) => ActorQueryOperationContextifyVersion.FACTORY.createPattern(
-          pattern.subject, pattern.predicate, pattern.object));
+        ].map(pattern => ActorQueryOperationContextifyVersion.FACTORY.createPattern(
+          pattern.subject, pattern.predicate, pattern.object,
+        ));
 
         // Check if patterns are equal
         if (patterns[0].equals(patterns[1])) {
@@ -156,7 +157,6 @@ export class ActorQueryOperationContextifyVersion extends ActorQueryOperation
   public async run(action: IActionQueryOperation): Promise<IActorQueryOperationOutput> {
     return await this.mediatorQueryOperation.mediate(this.getContextifiedVersionOperation(action));
   }
-
 }
 
 export interface IActorQueryOperationContextifyVersionArgs extends IActorQueryOperationTypedMediatedArgs {
@@ -168,4 +168,4 @@ export interface IActorQueryOperationContextifyVersionArgs extends IActorQueryOp
  * @type {string} Context entry for a version.
  * @value {IDataSource} A source.
  */
-export const KEY_CONTEXT_VERSION: string = '@comunica/actor-query-operation-contextify-version:version';
+export const KEY_CONTEXT_VERSION = '@comunica/actor-query-operation-contextify-version:version';
