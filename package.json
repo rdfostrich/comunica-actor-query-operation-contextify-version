@@ -1,6 +1,6 @@
 {
   "name": "@comunica/actor-query-operation-contextify-version",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "A contextify-version query-operation actor",
   "lsd:module": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-query-operation-contextify-version",
   "lsd:components": "components/components.jsonld",
