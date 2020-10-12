@@ -1,12 +1,14 @@
 import {ActorQueryOperation, IActorQueryOperationOutputBindings} from "@comunica/bus-query-operation";
 import {Bindings} from "@comunica/bus-query-operation";
 import {ActionContext, Bus} from "@comunica/core";
-import {literal, namedNode} from "@rdfjs/data-model";
+import {DataFactory} from "rdf-data-factory";
 import {ArrayIterator} from "asynciterator";
 import {Factory} from "sparqlalgebrajs";
 import {ActorQueryOperationContextifyVersion, KEY_CONTEXT_VERSION} from "../lib/ActorQueryOperationContextifyVersion";
 const quad = require('rdf-quad');
 const arrayifyStream = require('arrayify-stream');
+
+const DF = new DataFactory();
 
 describe('ActorQueryOperationContextifyVersion', () => {
   let bus;
@@ -21,9 +23,9 @@ describe('ActorQueryOperationContextifyVersion', () => {
     mediatorQueryOperation = {
       mediate: (arg) => Promise.resolve({
         bindingsStream: new ArrayIterator([
-          Bindings({ '?a': literal('1') }),
-          Bindings({ '?a': literal('2') }),
-          Bindings({ '?a': literal('3') }),
+          Bindings({ '?a': DF.literal('1') }),
+          Bindings({ '?a': DF.literal('2') }),
+          Bindings({ '?a': DF.literal('3') }),
         ]),
         metadata: () => Promise.resolve({ totalItems: 3 }),
         operated: arg,
@@ -166,7 +168,7 @@ describe('ActorQueryOperationContextifyVersion', () => {
               version: 1,
             },
           }),
-          operation: new Factory().createPattern(namedNode('s'), namedNode('p'), namedNode('o')),
+          operation: new Factory().createPattern(DF.namedNode('s'), DF.namedNode('p'), DF.namedNode('o')),
         });
       });
 
@@ -228,7 +230,7 @@ describe('ActorQueryOperationContextifyVersion', () => {
         return expect(actor.getContextifiedVersionOperation(actionValidDmAdd)).toEqual({
           context: ActionContext({ [KEY_CONTEXT_VERSION]: {
             queryAdditions: true, type: 'delta-materialization', versionEnd: 2, versionStart: 1 } }),
-          operation: new Factory().createPattern(namedNode('s'), namedNode('p'), namedNode('o')),
+          operation: new Factory().createPattern(DF.namedNode('s'), DF.namedNode('p'), DF.namedNode('o')),
         });
       });
 
@@ -236,7 +238,7 @@ describe('ActorQueryOperationContextifyVersion', () => {
         return expect(actor.getContextifiedVersionOperation(actionValidDmDel)).toEqual({
           context: ActionContext({ [KEY_CONTEXT_VERSION]: {
             queryAdditions: false, type: 'delta-materialization', versionEnd: 2, versionStart: 1 } }),
-          operation: new Factory().createPattern(namedNode('s'), namedNode('p'), namedNode('o')),
+          operation: new Factory().createPattern(DF.namedNode('s'), DF.namedNode('p'), DF.namedNode('o')),
         });
       });
     });
@@ -262,9 +264,9 @@ describe('ActorQueryOperationContextifyVersion', () => {
         expect(await output.metadata()).toEqual({ totalItems: 3 });
         expect(output.type).toEqual('bindings');
         expect(await arrayifyStream(output.bindingsStream)).toEqual([
-          Bindings({ '?a': literal('1') }),
-          Bindings({ '?a': literal('2') }),
-          Bindings({ '?a': literal('3') }),
+          Bindings({ '?a': DF.literal('1') }),
+          Bindings({ '?a': DF.literal('2') }),
+          Bindings({ '?a': DF.literal('3') }),
         ]);
       });
     });
