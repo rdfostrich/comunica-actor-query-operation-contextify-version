@@ -1,3 +1,7 @@
+# DEPRECATED in favor of https://github.com/comunica/comunica-feature-versioning
+
+-----
+
 # Comunica Contextify Version Query Operation Actor
 
 [![npm version](https://badge.fury.io/js/%40comunica%2Factor-query-operation-contextify-version.svg)](https://www.npmjs.com/package/@comunica/actor-query-operation-contextify-version)
